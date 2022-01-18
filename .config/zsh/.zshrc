@@ -1,4 +1,6 @@
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export ZSH="$XDG_CONFIG_HOME/zsh"
+export ZDOTDIR="$ZSH"
 
 # Don't require escaping globbing characters in zsh.
 unsetopt nomatch
@@ -6,19 +8,17 @@ unsetopt nomatch
 ### ENV setup
 export LANG=en_US.UTF-8
 
-export XDG_CONFIG_HOME="$HOME/.config"
-export ZDOTDIR="$HOME/.config/zsh"
-
 export EDITOR=vim
 type nvim > /dev/null \
 && export EDITOR=nvim
 
 # Load local env files if it's not remote host
-if [[ !(-n "$SSH_CONNECTION") ]]
+if [[ -z "$SSH_CONNECTION" ]]
 then
   for file in ${ZSH}/local/*.zsh 
   do
     source $file
+    echo "IS local"
   done
 fi
 
