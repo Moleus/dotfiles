@@ -1,13 +1,12 @@
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export ZSH="$XDG_CONFIG_HOME/zsh"
+export ZDOTDIR="$ZSH"
 
 # Don't require escaping globbing characters in zsh.
 unsetopt nomatch
 
 ### ENV setup
 export LANG=en_US.UTF-8
-
-export XDG_CONFIG_HOME="$HOME/.config"
-export ZDOTDIR="$HOME/.config/zsh"
 
 export EDITOR=vim
 type nvim > /dev/null \

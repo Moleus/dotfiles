@@ -15,7 +15,6 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " quick file explorer
 Plug 'tmhedberg/SimpylFold'                             " hide functions
 Plug 'tpope/vim-fugitive'
 " Plug 'vim-syntastic/syntastic'                          " syntax highlighting
-" Plug 'ycm-core/YouCompleteMe'                           " autocomplete for languages
 " Plug 'ervandew/supertab'                                " peace YCM with Ultisnips
 Plug 'airblade/vim-gitgutter'                           " show git diff changes on the left bar
 Plug 'wellle/targets.vim'                               " find nearest \",( or ' for ci command
@@ -53,12 +52,10 @@ endif
 " Plug '907th/vim-auto-save'
 " Plug 'chrisbra/unicode.vim'                             " Unicode characters search
 
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}   " config generator for youcompleteme
 " Plug 'rking/ag.vim'                                   " search in directories replacement for ack
 " Plug 'makerforceio/CoVim'
 " Plug 'nvie/vim-flake8'                                  " PEP 8 checking
 " Plug 'tpope/vim-unimpaired'
-endif
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -209,7 +206,7 @@ set smartcase
 nnoremap <Leader>r :%s///g<Left><Left>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Backup Files and Saves
+" Backup Files and AutoSave
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " turn on undo after saving file
 if has('persistent_undo')      "check if your vim version supports it
@@ -226,19 +223,19 @@ set fileencodings=utf8,cp1251
 " alias when editing as root to save changes press :Sw
 command! -nargs=0 Sw w !sudo tee % > /dev/null
 
-" Update bindings when dwm config updated.
+"" Update bindings when dwm config updated.
 " autocmd BufWritePost /usr/local/src/dwm-6.2/config.h !cd /usr/local/src/dwm-6.2; sudo make install && { killall -q dwm;setsid dwm & }
-autocmd BufWritePost /usr/local/src/dwm/config.h !cd /usr/local/src/dwm; make; sudo make install
-" Update bindings when dwmblocks config updated.
-autocmd BufWritePost /usr/local/src/dwmblocks/config.h !cd /usr/local/src/dwmblocks; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
-" Update bindings when sxhkdrc is updated.
+" autocmd BufWritePost /usr/local/src/dwm/config.h !cd /usr/local/src/dwm; make; sudo make install
+"" Update bindings when dwmblocks config updated.
+" autocmd BufWritePost /usr/local/src/dwmblocks/config.h !cd /usr/local/src/dwmblocks; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
+"" Reload compton config.
+" autocmd BufWritePost *compton.conf !killall compton; compton&
+"" Reload xterm settings
+" autocmd! BufWritePost $HOME/.Xresources !xrdb $HOME/.Xresources&
+"" Update bindings when sxhkdrc is updated.
 autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd&
-" Reload compton config.
-autocmd BufWritePost *compton.conf !killall compton; compton&
-" Reload vimrc
+"" Reload vimrc
 autocmd! BufWritePost ~/.config/vim/vimrc source % | echom "Reloaded"
-" Reload xterm settings
-autocmd! BufWritePost $HOME/.Xresources !xrdb $HOME/.Xresources&
 
 " map save to 1
 if !has('nvim')
@@ -253,16 +250,6 @@ autocmd BufEnter * silent! lcd %:p:h
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Scripts and commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"python with virtualenv support
-" py << EOF
-" import os
-" import sys
-" if 'VIRTUAL_ENV' in os.environ:
-"   project_base_dir = os.environ['VIRTUAL_ENV']
-"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"   execfile(activate_this, dict(__file__=activate_this))
-" EOF
 
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -309,59 +296,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" YouCompleteMe
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if !exists('g:vscode')
-
-"let g:ycm_register_as_syntastic_checker = 0 "default 1
-"let g:ycm_show_diagnostics_ui = 1 "default 1
-
-""will put icons in Vim's gutter on lines that have a diagnostic set.
-""Turning this off will also turn off the YcmErrorLine and YcmWarningLine
-""highlighting
-"let g:ycm_enable_diagnostic_signs = 1
-"let g:ycm_enable_diagnostic_highlighting = 1
-"let g:ycm_always_populate_location_list = 1 "default 0
-"let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
-
-
-"let g:ycm_complete_in_strings = 1 "default 1
-"let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
-"let g:ycm_path_to_python_interpreter = '/usr/bin/python3.8' "default ''
-
-
-"let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
-"let g:ycm_server_log_level = 'info' "default info
-
-"let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'  "where to search for .ycm_extra_conf.py if not found
-"let g:ycm_confirm_extra_conf = 0
-
-"let g:ycm_autoclose_preview_window_after_completion=1
-
-"let g:ycm_goto_buffer_command = 'same-buffer' "[ 'same-buffer', 'horizontal-split', 'vertical-split', 'new-tab' ]
-"let g:ycm_key_invoke_completion = '<C-Space>'
-
-"nnoremap <C-F11> :YcmForceCompileAndDiagnostics <CR>
-
-"let g:ycm_filetype_whitelist = {'*': 1}
-"" let g:ycm_filetype_whitelist = {
-"" 			\ "c":1,
-"" 			\ "cpp":1,
-"" 			\ "sh":1,
-"" 			\ "zsh":1,
-"" 			\ "python":1,
-"" 			\ }
-
-"map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" let g:ycm_clangd_binary_path = '$HOME/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd'
-
-" make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " auto-brackets (autoclosing)
