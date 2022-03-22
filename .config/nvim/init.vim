@@ -1,62 +1,3 @@
-" call plug#begin('~/.config/vim/plugged')
-
-" Plug 'tpope/vim-commentary'          " add comments by pressing gc + any direction
-" Plug 'tpope/vim-surround'            " surrounds everything with anything; cs'<h1>
-
-" if !exists('g:vscode')
-" Plug 'lyokha/vim-xkbswitch'          " Change layout on Escape/Insert mode
-" Plug 'easymotion/vim-easymotion'                        " jump to any letter on page easily
-" Plug 'powerman/vim-plugin-ruscmd'    " rus layout command mode
-" Plug 'jiangmiao/auto-pairs'                             " autoclose brakets
-" " Plug 'kien/ctrlp.vim'                                   " search in buffers, directories, files
-" Plug 'morhetz/gruvbox'                                  " colorchemes
-" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " quick file explorer
-" Plug 'tmhedberg/SimpylFold'                             " hide functions
-" Plug 'tpope/vim-fugitive'
-" " Plug 'vim-syntastic/syntastic'                          " syntax highlighting
-" " Plug 'ervandew/supertab'                                " peace YCM with Ultisnips
-" Plug 'airblade/vim-gitgutter'                           " show git diff changes on the left bar
-" Plug 'wellle/targets.vim'                               " find nearest \",( or ' for ci command
-
-" Plug 'vim-airline/vim-airline'                                 " bottom status bar
-" Plug 'vim-airline/vim-airline-themes'                          " bottom status bar
-
-" Plug 'edkolev/tmuxline.vim'                                " Tmux airline theme generator
-" Plug 'chrisbra/Colorizer'                          "  color hex codes and color names
-
-" " snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-" " Tex support
-" Plug 'lervag/vimtex'
-
-" Plug 'KeitaNakamura/tex-conceal.vim'
-
-" nvim Autocompete
-" if has('nvim')
-" 	" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" 	" Plug 'zchee/deoplete-jedi'
-
-" 	Plug 'nvim-lua/plenary.nvim'                            " Fuzzy finder
-" 	Plug 'nvim-lua/popup.nvim'
-" 	Plug 'nvim-telescope/telescope.nvim'
-
-" 	Plug 'neovim/nvim-lspconfig'                            " NeoVim autocomplete
-" 	Plug 'hrsh7th/nvim-cmp'
-" 	Plug 'hrsh7th/cmp-nvim-lsp'
-" 	" Plug 'saadparwaiz1/cmp_luasnip'
-" 	" Plug 'L3MON4D3/LuaSnip'
-" endif
-
-" " Plug '907th/vim-auto-save'
-" " Plug 'chrisbra/unicode.vim'                             " Unicode characters search
-
-" " Plug 'rking/ag.vim'                                   " search in directories replacement for ack
-" " Plug 'makerforceio/CoVim'
-" " Plug 'nvie/vim-flake8'                                  " PEP 8 checking
-" " Plug 'tpope/vim-unimpaired'
-" call plug#end()
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mouse and keyboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -405,53 +346,6 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/vim/UltiSnips', $HOME.'/.config/vim/plugged/vim-snippets/UltiSnips']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vimtex 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:tex_flavor='xelatex'
-let g:vimtex_view_general_viewer = 'qpdfview'
-let g:vimtex_view_general_options
-  \ = '--unique @pdf\#src:@tex:@line:@col'
-let g:vimtex_quickfix_mode=0
-
-let g:vimtex_fold_enabled=1
-
-let g:vimtex_compiler_latexmk = {
-       \ 'build_dir' : 'tex_out',
-       \ 'callback' : 1,
-       \ 'continuous' : 0,
-       \ 'executable' : 'latexmk',
-       \ 'options' : [
-       \   '-xelatex',
-       \   '-verbose',
-       \   '-file-line-error',
-       \   '-synctex=1',
-       \   '-interaction=nonstopmode',
-       \   '-file-line-error',
-       \   '-outdir=tex_out'
-       \ ],
-       \ }
-
-let g:vimtex_compiler_latexmk_engines = {
-    \ '_'                : '-xelatex',
-    \ 'pdfdvi'           : '-pdfdvi',
-    \ 'pdfps'            : '-pdfps',
-    \ 'pdflatex'         : '-pdf',
-    \ 'luatex'           : '-lualatex',
-    \ 'lualatex'         : '-lualatex',
-    \ 'xelatex'          : '-xelatex',
-    \ 'context (pdftex)' : '-pdf -pdflatex=texexec',
-    \ 'context (luatex)' : '-pdf -pdflatex=context',
-    \ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
-   \}
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" tex-conceal
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set conceallevel=0
-let g:tex_conceal='abdmg'
-hi Conceal ctermbg=none
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-auto-save
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:auto_save_events = ["InsertLeave"]
@@ -462,42 +356,38 @@ hi Conceal ctermbg=none
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:XkbSwitchEnabled = 1
 
-let g:XkbSwitchNLayout = 'us'
+" let g:XkbSwitchNLayout = 'us'
 " let g:XkbSwitchILayout = 'us'
 
-let g:XkbSwitchIMappings = ['ru']
-let g:XkbSwitchLib = '/usr/lib/libxkbswitch.so'
+" let g:XkbSwitchIMappings = ['ru']
+" let g:XkbSwitchLib = '/usr/lib/libxkbswitch.so'
 " set keymap=russian-jcukenwin
 " set iminsert=0
 " set imsearch=0
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" deoplete-jedi
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:airline#extensions#tabline#fnamemod = ':.'
 " let g:airline#extensions#tabline#fnamecollapse = 0
-let g:airline_powerline_fonts = 1
-let g:airline_theme='iceberg'
-let g:airline_section_b = '%:p:h' " in section B of the status line display the CWD
+" let g:airline_powerline_fonts = 1
+" let g:airline_theme='iceberg'
+" let g:airline_section_b = '%:p:h' " in section B of the status line display the CWD
 
-let g:airline_section_z = '%l/%L'  " current / total lines
+" let g:airline_section_z = '%l/%L'  " current / total lines
 
-" Tabline
-let g:airline#extensions#tabline#enabled = 1           " enable airline tabline
-let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
-let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
-let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
-let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab
-let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
-let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline
-let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline
-let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
-let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
-let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
+" " Tabline
+" let g:airline#extensions#tabline#enabled = 1           " enable airline tabline
+" let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
+" let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
+" let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
+" let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab
+" let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
+" let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline
+" let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline
+" let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
+" let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
+" let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Telescope
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -520,6 +410,7 @@ lua require('my.plugins')
 lua require('my.settings')
 lua require('my.keymaps')
 lua require('my.lsp')
+lua require('my.appearance.lualine')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "				The END
