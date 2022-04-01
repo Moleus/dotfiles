@@ -1,0 +1,411 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mouse and keyboard
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:mapleader=' '		                 " remap Leader key
+
+"disable touchpad when typing
+autocmd VimEnter 'syndaemon -i 1 -K -d'
+
+if exists('g:vscode')
+	" autocmd InsertLeave * :silent !xkb-switch -s us
+	set nolazyredraw
+endif
+
+" hide mouse cursor when typing
+if !has('nvim')
+	set mousehide
+	" enable mouse scroll
+	set mouse=
+	set ttymouse=
+endif
+
+
+" copy to global clipboard
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+" set clipboard=unnamedplus
+" let g:clipboard = ['xclip']
+set clipboard+=unnamed
+
+" don't clear clipboard on exit
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
+
+" add spaces in normal mode. Doesn't work if space is your leader key
+nnoremap <space> i<space><esc>
+
+" Backspace normal delete in insert mode
+set backspace=indent,eol,start whichwrap+=<,>,[,]
+
+
+" Slow exiting from insert mode fix
+set timeoutlen=1000
+set ttimeoutlen=50
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Lines
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" numerate lines
+set number
+" relative line numbering
+set relativenumber
+
+" do not automatically wrap on load
+set nowrap
+" set formatoptions-=t " do not automatically wrap text when typing
+
+" turn off autopairs and tabs
+set pastetoggle=<F3>
+
+" Remove tabs highlighting
+set showtabline=1
+
+" no comments when pressing O or o
+autocmd FileType * setlocal formatoptions-=cro
+
+" indents
+set nosmartindent
+set cindent
+filetype plugin indent on
+set cinkeys-=0#
+set indentkeys-=0#
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+" tabs and comments pluging
+autocmd FileType * setlocal ts=2 sts=2 sw=2
+autocmd FileType java setlocal ts=2 sts=2 sw=2 commentstring=//\ %s
+autocmd FileType tex setlocal ts=4 sts=4 sw=4 commentstring=%\ %s
+autocmd FileType sh setlocal ts=4 sts=4 sw=4 commentstring=#\ %s
+autocmd FileType cpp,c setlocal ts=2 sts=2 sw=2 commentstring=//\ %s
+autocmd FileType arduino setlocal ts=2 sts=2 sw=2 commentstring=//\ %s
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 commentstring=/*\ %s\ */
+autocmd FileType python setlocal ts=2 sts=2 sw=2 commentstring=#\ %s
+autocmd FileType html setlocal ts=2 sts=2 sw=2 commentstring=<!--\%s-->
+autocmd FileType css setlocal ts=4 sts=4 sw=4 commentstring=/*\ %s */
+
+" Turn on smartindents in .py files after keywords
+" autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+
+" specify ctags file (search for references in project)
+" autocmd BufRead *.* set tags=./tags;
+
+"new line without insert mode
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Style and spell check
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+syntax on	         " turn on syntax highlight
+set background=dark      " set vim dark theme
+if !exists('g:vscode')
+colorscheme gruvbox      " customize theme
+endif
+
+hi Normal guibg=NONE ctermbg=NONE
+
+if $TERM == "xterm-256color"
+	set t_Co=256
+endif
+
+" set language spell check
+set spelllang=en_us,ru_ru
+" spell check toggle
+nnoremap <silent> <F11> :set spell!<cr>
+inoremap <silent> <F11> <C-O>:set spell!<cr>
+
+set termencoding=utf-8 "for Russian letters
+set novisualbell "No blinking
+set t_vb= "Turn beeping off
+
+" disable hidding characters in json
+autocmd Filetype json
+  \ set conceallevel=0 |
+  \ let g:indentLine_setConceal = 0 |
+  \ let g:vim_json_syntax_conceal = 0
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Search
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" vim search options
+set hlsearch
+set incsearch
+" ignore case when searching
+set ignorecase
+" sense case when typing with Upper case
+set smartcase
+
+" replace highlighted word
+nnoremap <Leader>r :%s///g<Left><Left>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Backup Files and AutoSave
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" turn on undo after saving file
+if has('persistent_undo')      "check if your vim version supports it
+	set undofile                 "turn on the feature
+	set undodir=$XDG_CONFIG_HOME/vim/undo  "directory where the undo files will be stored
+endif
+
+" Turn off .swp and  ~ (backup) files
+set nobackup
+set noswapfile
+set encoding=utf-8
+set fileencodings=utf8,cp1251
+
+" alias when editing as root to save changes press :Sw
+command! -nargs=0 Sw w !sudo tee % > /dev/null
+
+"" Update bindings when dwm config updated.
+" autocmd BufWritePost /usr/local/src/dwm-6.2/config.h !cd /usr/local/src/dwm-6.2; sudo make install && { killall -q dwm;setsid dwm & }
+" autocmd BufWritePost /usr/local/src/dwm/config.h !cd /usr/local/src/dwm; make; sudo make install
+"" Update bindings when dwmblocks config updated.
+" autocmd BufWritePost /usr/local/src/dwmblocks/config.h !cd /usr/local/src/dwmblocks; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
+"" Reload compton config.
+" autocmd BufWritePost *compton.conf !killall compton; compton&
+"" Reload xterm settings
+" autocmd! BufWritePost $HOME/.Xresources !xrdb $HOME/.Xresources&
+"" Update bindings when sxhkdrc is updated.
+autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd&
+"" Reload vimrc
+autocmd! BufWritePost ~/.config/vim/vimrc source % | echom "Reloaded"
+
+" map save to 1
+if !has('nvim')
+	execute "set <M-s>=\es"
+	nnoremap <M-s> :w<CR>
+endif
+
+" change directory for window
+autocmd BufEnter * silent! lcd %:p:h
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Scripts and commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" Select all lines in a file.
+nnoremap gV ggVG
+
+" copy file path to register
+nnoremap cp :let @" = expand("%:p")<cr>
+
+" run python 3.8 shortcut
+" ctrl+shift+p to execute script with python3
+noremap <C-S>p :!python3.8<Space>
+
+
+nnoremap <leader>c :e ~/.config/nvim/init.vim<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Splits and windows
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" create new splits below or to the right
+set splitbelow splitright
+
+" open terminal in new split
+map <leader>tt :terminal<CR>
+" go to normal mode in terminal by pressing alt k
+tnoremap <M-k> <C-\><C-n>
+" set notimeout ttimeout timeoutlen=100
+" resize vim windows with key ars
+nnoremap <Up> :resize -2<CR>
+nnoremap <Down> :resize +2<CR>
+nnoremap <Left> :vertical resize -2<CR>
+nnoremap <Right> :vertical resize +2<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           Neo Vim - vscode prefs
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if exists('g:vscode')
+	set foldmethod=indent
+	nmap j gj
+	nmap k gk
+endif
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           Plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" auto-brackets (autoclosing)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"for alt works correctly
+if !has('nvim')
+	execute "set <M-e>=\ee"
+	nnoremap <M-e> e
+	execute "set <M-b>=\eb"
+	nnoremap <M-b> b
+endif
+" let g:AutoPairsFlyMode = 1
+" let g:AutoPairsShortcutBackInsert = '<M-b>'
+"let g:AutoPairsShortcutToggle =
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SimplyFold Plugin
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Folding for *.py
+" autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+" autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+let g:SimpylFold_fold_docstring = 1
+let g:SimpylFold_docstring_preview = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntastic
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" let g:syntastic_python_flake8_exec = 'flake8'
+" let g:syntastic_python_checkers = ['flake8']
+
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+" let g:syntastic_always_populate_loc_list = 1
+" " let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 1
+
+" let g:syntastic_auto_loc_list = 2
+" " let g:syntastic_enable_balloons = 0
+" let g:syntastic_loc_list_height = 5
+" let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=100'
+
+" let g:syntastic_html_checkers = []
+" let g:syntastic_java_checkers = []
+" let g:syntastic_javascript_checkers = []
+" let g:syntastic_json_checkers = ['jsonlint']
+" let g:syntastic_python_checkers = ['flake8']
+" let g:syntastic_ruby_checkers = ['mri']
+" let g:syntastic_sh_checkers = ['shellcheck']
+
+" tests
+" let g:Syntastic_enable_signs = 1 "does nothing???
+" highlight SyntasticErrorSign guifg=blue guibg=red
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CtrlP plugin settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Setup some default ignores
+let g:ctrlp_custom_ignore = { 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$', 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',}
+
+" Use the nearest .git directory as the cwd
+" This makes a lot of sense if you are working on a project that is in version
+" control. It also supports works with .svn, .hg, .bzr.
+
+let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_map = '<leader>p'
+
+" Easy bindings for its various modes
+nmap <leader>bb :CtrlPBuffer<cr>
+nmap <leader>bm :CtrlPMixed<cr>
+nmap <leader>bs :CtrlPMRU<cr>
+
+" gitify plugin remaps
+nmap <leader>gj :diffget //3<CR>
+nmap <leader>gf :diffget //2<CR>
+nmap <leader>gs :G<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NerdTree
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"mappings
+map <C-n> :NERDTreeToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Easymotion
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map <Leader> <Plug>(easymotion-prefix)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ultisnips
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/vim/UltiSnips', $HOME.'/.config/vim/plugged/vim-snippets/UltiSnips']
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-auto-save
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:auto_save_events = ["InsertLeave"]
+" nnoremap <F9> :AutoSaveToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-xkbswitch
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:XkbSwitchEnabled = 1
+
+" let g:XkbSwitchNLayout = 'us'
+" let g:XkbSwitchILayout = 'us'
+
+" let g:XkbSwitchIMappings = ['ru']
+" let g:XkbSwitchLib = '/usr/lib/libxkbswitch.so'
+" set keymap=russian-jcukenwin
+" set iminsert=0
+" set imsearch=0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:airline#extensions#tabline#fnamemod = ':.'
+" let g:airline#extensions#tabline#fnamecollapse = 0
+" let g:airline_powerline_fonts = 1
+" let g:airline_theme='iceberg'
+" let g:airline_section_b = '%:p:h' " in section B of the status line display the CWD
+
+" let g:airline_section_z = '%l/%L'  " current / total lines
+
+" " Tabline
+" let g:airline#extensions#tabline#enabled = 1           " enable airline tabline
+" let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
+" let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
+" let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
+" let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab
+" let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
+" let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline
+" let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline
+" let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
+" let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
+" let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Telescope
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Using Lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+echo("Vim loaded")
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"				The END
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" endif " exists('vscode')

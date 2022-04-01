@@ -1,6 +1,15 @@
 local M = {}
 M.theme = function()
   local colors = {
+    -- darkgray = "#16161d",
+    -- gray = "#727169",
+    -- innerbg = "#NONE",
+    -- outerbg = "#16161D",
+    -- normal = "#7e9cd8",
+    -- insert = "#98bb6c",
+    -- visual = "#ffa066",
+    -- replace = "#e46876",
+    -- command = "#e6c384",
     darkgray = "#16161d",
     gray = "#727169",
     innerbg = "#727169",
@@ -10,6 +19,7 @@ M.theme = function()
     visual = "#ffa066",
     replace = "#e46876",
     command = "#e6c384",
+
   }
   return {
     inactive = {

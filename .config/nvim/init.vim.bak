@@ -1,4 +1,43 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                          Install Plugins 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call plug#begin('~/.vim/plugged')
+
+
+if !exists('g:vscode')
+
+Plug 'easymotion/vim-easymotion'                        " jump to any letter on page easily 
+Plug 'https://github.com/powerman/vim-plugin-ruscmd'    " rus layout command mode 
+Plug 'https://github.com/tpope/vim-commentary'          " add comments by pressing gc + any direction
+Plug 'https://github.com/tpope/vim-surround'            " surrounds everything with anything; cs'<h1>  
+Plug 'jiangmiao/auto-pairs'                             " autoclose brakets 
+Plug 'kien/ctrlp.vim'                                   " search in buffers, directories, files
+Plug 'morhetz/gruvbox'                                  " colorchemes
+" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " quick file explorer
+Plug 'tmhedberg/SimpylFold'                             " hide functions 
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'                          " bottom status bar
+Plug 'vim-syntastic/syntastic'                          " syntax highlighting
+" Plug 'ycm-core/YouCompleteMe'                           " autocomplete for languages 
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'     " snippets for coding
+Plug 'ervandew/supertab'                                " peace YCM with Ultisnips
+Plug 'airblade/vim-gitgutter'                           " show git diff changes on the left bar
+Plug 'wellle/targets.vim'       
+" Plug "lyokha/vim-xkbswitch"
+" Plug '907th/vim-auto-save'
+
+
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}   " config generator for youcompleteme 
+" Plug 'rking/ag.vim'                                   " search in directories replacement for ack
+" Plug 'makerforceio/CoVim'
+" Plug 'nvie/vim-flake8'                                  " PEP 8 checking            
+" Plug 'tpope/vim-unimpaired'
+
+endif
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mouse and keyboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -7,14 +46,9 @@ let g:mapleader=' '		                 " remap Leader key
 "disable touchpad when typing
 autocmd VimEnter 'syndaemon -i 1 -K -d'
 
-if exists('g:vscode')
-	" autocmd InsertLeave * :silent !xkb-switch -s us
-	set nolazyredraw
-endif
-
 " hide mouse cursor when typing
 if !has('nvim')
-	set mousehide
+	set mousehide 
 	" enable mouse scroll
 	set mouse=
 	set ttymouse=
@@ -26,8 +60,6 @@ noremap <Leader>y "+y
 noremap <Leader>p "+p
 " set clipboard=unnamedplus
 " let g:clipboard = ['xclip']
-set clipboard+=unnamed
-
 " don't clear clipboard on exit
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
@@ -47,12 +79,12 @@ set ttimeoutlen=50
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " numerate lines
-set number
+set number                             
 " relative line numbering
-set relativenumber
+set relativenumber                     
 
 " do not automatically wrap on load
-set nowrap
+set nowrap           
 " set formatoptions-=t " do not automatically wrap text when typing
 
 " turn off autopairs and tabs
@@ -62,7 +94,7 @@ set pastetoggle=<F3>
 set showtabline=1
 
 " no comments when pressing O or o
-autocmd FileType * setlocal formatoptions-=cro
+autocmd FileType * setlocal formatoptions-=cro 
 
 " indents
 set nosmartindent
@@ -71,27 +103,21 @@ filetype plugin indent on
 set cinkeys-=0#
 set indentkeys-=0#
 
-set tabstop=2
-set shiftwidth=2
-set expandtab
-
 " tabs and comments pluging
-autocmd FileType * setlocal ts=2 sts=2 sw=2
-autocmd FileType java setlocal ts=2 sts=2 sw=2 commentstring=//\ %s
-autocmd FileType tex setlocal ts=4 sts=4 sw=4 commentstring=%\ %s
+autocmd FileType * setlocal ts=4 sts=4 sw=4
 autocmd FileType sh setlocal ts=4 sts=4 sw=4 commentstring=#\ %s
 autocmd FileType cpp,c setlocal ts=2 sts=2 sw=2 commentstring=//\ %s
 autocmd FileType arduino setlocal ts=2 sts=2 sw=2 commentstring=//\ %s
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2 commentstring=/*\ %s\ */
-autocmd FileType python setlocal ts=2 sts=2 sw=2 commentstring=#\ %s
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 commentstring=/*\ %s\ */ 
+autocmd FileType python setlocal ts=4 sts=4 sw=4 commentstring=#\ %s
 autocmd FileType html setlocal ts=2 sts=2 sw=2 commentstring=<!--\%s-->
 autocmd FileType css setlocal ts=4 sts=4 sw=4 commentstring=/*\ %s */
 
 " Turn on smartindents in .py files after keywords
 " autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-
-" specify ctags file (search for references in project)
-" autocmd BufRead *.* set tags=./tags;
+ 
+" specift ctags file (search for references in project)
+autocmd BufRead *.* set tags=./tags;
 
 "new line without insert mode
 nnoremap <Leader>o o<Esc>
@@ -107,28 +133,13 @@ if !exists('g:vscode')
 colorscheme gruvbox      " customize theme
 endif
 
-hi Normal guibg=NONE ctermbg=NONE
+" set language spell chech
+" set spelllang=en_us,ru_ru
+" set spell
 
-if $TERM == "xterm-256color"
-	set t_Co=256
-endif
-
-" set language spell check
-set spelllang=en_us,ru_ru
-" spell check toggle
-nnoremap <silent> <F11> :set spell!<cr>
-inoremap <silent> <F11> <C-O>:set spell!<cr>
-
-set termencoding=utf-8 "for Russian letters
+set termencoding=utf-8 "for russion letters
 set novisualbell "No blinking
 set t_vb= "Turn beeping off
-
-" disable hidding characters in json
-autocmd Filetype json
-  \ set conceallevel=0 |
-  \ let g:indentLine_setConceal = 0 |
-  \ let g:vim_json_syntax_conceal = 0
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search
@@ -142,70 +153,62 @@ set ignorecase
 " sense case when typing with Upper case
 set smartcase
 
-" replace highlighted word
+" replace highlighted word 
 nnoremap <Leader>r :%s///g<Left><Left>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Backup Files and AutoSave
+" Backup Files and Saves
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" turn on undo after saving file
+" turn on undo after saving file 
 if has('persistent_undo')      "check if your vim version supports it
-	set undofile                 "turn on the feature
-	set undodir=$XDG_CONFIG_HOME/vim/undo  "directory where the undo files will be stored
-endif
+  set undofile                 "turn on the feature
+  set undodir=$HOME/.vim/undo  "directory where the undo files will be stored
+  endif
 
 " Turn off .swp and  ~ (backup) files
 set nobackup
 set noswapfile
-set encoding=utf-8
+set encoding=utf-8  
 set fileencodings=utf8,cp1251
 
 " alias when editing as root to save changes press :Sw
 command! -nargs=0 Sw w !sudo tee % > /dev/null
 
-"" Update bindings when dwm config updated.
+" Update bindings when dwm config updated.
 " autocmd BufWritePost /usr/local/src/dwm-6.2/config.h !cd /usr/local/src/dwm-6.2; sudo make install && { killall -q dwm;setsid dwm & }
-" autocmd BufWritePost /usr/local/src/dwm/config.h !cd /usr/local/src/dwm; make; sudo make install
-"" Update bindings when dwmblocks config updated.
-" autocmd BufWritePost /usr/local/src/dwmblocks/config.h !cd /usr/local/src/dwmblocks; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
-"" Reload compton config.
-" autocmd BufWritePost *compton.conf !killall compton; compton&
-"" Reload xterm settings
-" autocmd! BufWritePost $HOME/.Xresources !xrdb $HOME/.Xresources&
-"" Update bindings when sxhkdrc is updated.
-autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd&
-"" Reload vimrc
-autocmd! BufWritePost ~/.config/vim/vimrc source % | echom "Reloaded"
+autocmd BufWritePost /usr/local/src/dwm-6.2/config.h !cd /usr/local/src/dwm-6.2; sudo make install 
+" Update bindings when dwmblocks config updated.
+autocmd BufWritePost /usr/local/src/dwmblocks/config.h !cd /usr/local/src/dwmblocks; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
+" Update bindings when sxhkdrc is updated.
+autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
+" Update bindings when compton config updated.
+autocmd BufWritePost *compton.conf !killall compton; compton&
 
 " map save to 1
-if !has('nvim')
-	execute "set <M-s>=\es"
-	nnoremap <M-s> :w<CR>
-endif
-
-" change directory for window
-autocmd BufEnter * silent! lcd %:p:h
+" execute "set <M-s>=\es"
+" nnoremap <M-s> :w<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Scripts and commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"python with virtualenv support
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"   project_base_dir = os.environ['VIRTUAL_ENV']
+"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"   execfile(activate_this, dict(__file__=activate_this))
+" EOF
+
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-
-" Select all lines in a file.
-nnoremap gV ggVG
-
-" copy file path to register
-nnoremap cp :let @" = expand("%:p")<cr>
 
 " run python 3.8 shortcut
 " ctrl+shift+p to execute script with python3
 noremap <C-S>p :!python3.8<Space>
-
-
-nnoremap <leader>c :e ~/.config/nvim/init.vim<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Splits and windows
@@ -216,23 +219,32 @@ set splitbelow splitright
 
 " open terminal in new split
 map <leader>tt :terminal<CR>
-" go to normal mode in terminal by pressing alt k
-tnoremap <M-k> <C-\><C-n>
+" go to normal mode in terminal by pressing esc
+" tnoremap <Esc> <C-W>N
 " set notimeout ttimeout timeoutlen=100
+
 " resize vim windows with key ars
-nnoremap <Up> :resize -2<CR>
+nnoremap <Up> :resize -2<CR> 
 nnoremap <Down> :resize +2<CR>
 nnoremap <Left> :vertical resize -2<CR>
 nnoremap <Right> :vertical resize +2<CR>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           Neo Vim - vscode prefs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists('g:vscode')
-	set foldmethod=indent
-	nmap j gj
-	nmap k gk
+
+set foldmethod=indent
+nmap j gj
+nmap k gk
+
 endif
+
 
 
 
@@ -241,19 +253,71 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if !exists('g:vscode')
+
+let g:ycm_register_as_syntastic_checker = 0 "default 1
+let g:ycm_show_diagnostics_ui = 1 "default 1
+
+"will put icons in Vim's gutter on lines that have a diagnostic set.
+"Turning this off will also turn off the YcmErrorLine and YcmWarningLine
+"highlighting
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_always_populate_location_list = 1 "default 0
+let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
+
+
+let g:ycm_complete_in_strings = 1 "default 1
+let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
+let g:ycm_path_to_python_interpreter = '/usr/bin/python3.8' "default ''
+
+
+let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
+let g:ycm_server_log_level = 'info' "default info
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'  "where to search for .ycm_extra_conf.py if not found
+let g:ycm_confirm_extra_conf = 0
+
+let g:ycm_autoclose_preview_window_after_completion=1
+
+let g:ycm_goto_buffer_command = 'same-buffer' "[ 'same-buffer', 'horizontal-split', 'vertical-split', 'new-tab' ]
+let g:ycm_key_invoke_completion = '<C-Space>'
+
+nnoremap <C-F11> :YcmForceCompileAndDiagnostics <CR>
+
+let g:ycm_filetype_whitelist = {'*': 1}
+" let g:ycm_filetype_whitelist = {
+" 			\ "c":1,
+" 			\ "cpp":1,
+" 			\ "sh":1,
+" 			\ "zsh":1,
+" 			\ "python":1,
+" 			\ }
+
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" let g:ycm_clangd_binary_path = '/home/buka/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd'
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " auto-brackets (autoclosing)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "for alt works correctly
-if !has('nvim')
-	execute "set <M-e>=\ee"
-	nnoremap <M-e> e
-	execute "set <M-b>=\eb"
-	nnoremap <M-b> b
-endif
+"execute "set <M-e>=\ee"
+"nnoremap <M-e> e
+"execute "set <M-b>=\eb"
+"nnoremap <M-b> b
 " let g:AutoPairsFlyMode = 1
 " let g:AutoPairsShortcutBackInsert = '<M-b>'
-"let g:AutoPairsShortcutToggle =
+"let g:AutoPairsShortcutToggle = 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SimplyFold Plugin
@@ -268,23 +332,24 @@ let g:SimpylFold_docstring_preview = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if !exists('g:vscode')
 
-" let g:syntastic_python_flake8_exec = 'flake8'
-" let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_exec = 'flake8'
+let g:syntastic_python_checkers = ['flake8']
+	
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
 
-" let g:syntastic_always_populate_loc_list = 1
-" " let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 1
-
-" let g:syntastic_auto_loc_list = 2
-" " let g:syntastic_enable_balloons = 0
-" let g:syntastic_loc_list_height = 5
-" let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=100'
+let g:syntastic_auto_loc_list = 2
+" let g:syntastic_enable_balloons = 0
+let g:syntastic_loc_list_height = 5
+let g:syntastic_python_flake8_args = '--ignore=E501 --max-line-length=100'
 
 " let g:syntastic_html_checkers = []
 " let g:syntastic_java_checkers = []
@@ -303,14 +368,18 @@ let g:SimpylFold_docstring_preview = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Setup some default ignores
-let g:ctrlp_custom_ignore = { 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$', 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',}
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
 
 " Use the nearest .git directory as the cwd
 " This makes a lot of sense if you are working on a project that is in version
 " control. It also supports works with .svn, .hg, .bzr.
-
 let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_map = '<leader>p'
+
+" Use a leader instead of the actual named binding
+" map <leader>p :CtrlP<cr>
 
 " Easy bindings for its various modes
 nmap <leader>bb :CtrlPBuffer<cr>
@@ -336,83 +405,28 @@ map <C-n> :NERDTreeToggle<CR>
 map <Leader> <Plug>(easymotion-prefix)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CoVim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let CoVim_default_name = "buka"
+let CoVim_default_port = "8555"  
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ultisnips
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/vim/UltiSnips', $HOME.'/.config/vim/plugged/vim-snippets/UltiSnips']
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-auto-save
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:auto_save_events = ["InsertLeave"]
-" nnoremap <F9> :AutoSaveToggle<CR>
+let g:auto_save_events = ["InsertLeave"]
+nnoremap <F9> :AutoSaveToggle<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-xkbswitch
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:XkbSwitchEnabled = 1
-
-" let g:XkbSwitchNLayout = 'us'
-" let g:XkbSwitchILayout = 'us'
-
-" let g:XkbSwitchIMappings = ['ru']
-" let g:XkbSwitchLib = '/usr/lib/libxkbswitch.so'
-" set keymap=russian-jcukenwin
-" set iminsert=0
-" set imsearch=0
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-airline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:airline#extensions#tabline#fnamemod = ':.'
-" let g:airline#extensions#tabline#fnamecollapse = 0
-" let g:airline_powerline_fonts = 1
-" let g:airline_theme='iceberg'
-" let g:airline_section_b = '%:p:h' " in section B of the status line display the CWD
-
-" let g:airline_section_z = '%l/%L'  " current / total lines
-
-" " Tabline
-" let g:airline#extensions#tabline#enabled = 1           " enable airline tabline
-" let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline
-" let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
-" let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)
-" let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab
-" let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right
-" let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline
-" let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline
-" let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline
-" let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers
-" let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Telescope
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" Using Lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lua
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-lua require('my.plugins')
-lua require('my.settings')
-lua require('my.keymaps')
-lua require('my.lsp')
-lua require('my.appearance.lualine')
-
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "				The END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" endif " exists('vscode')

@@ -3,8 +3,8 @@ if not has_lsp then
   return
 end
 
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.o.pumheight = 5
+local lspconfig = require("lspconfig")
+local configs = require("my.lsp.servers")
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
@@ -67,42 +67,28 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+------------------
+-- Capabilities --
+------------------
 
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig').texlab.setup {
-  capabilities = capabilities
-}
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-require('lspconfig').pyright.setup {
-  capabilities = capabilities
-}
-require('lspconfig').vimls.setup{ }
-
-
--- Your custom attach function for nvim-lspconfig goes here.
--- local custom_nvim_lspconfig_attach = function(...) end
-
--- To get builtin LSP running, do something like:
--- NOTE: This replaces the calls where you would have before done `require('nvim_lsp').sumneko_lua.setup()`
-
-require('lspconfig').sumneko_lua.setup({
-  settings = {
-    Lua = {
-      runtime = { version = "LuaJIT", path = vim.split(package.path, ';'), },
-      -- completion = { keywordSnippet = "Disable", },
-      diagnostics = { enable = true, globals = {
-        "vim", "describe", "it", "before_each", "after_each" },
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("~/build/neovim/src/nvim/lua")] = true,
+capabilities.textDocument.codeAction = {
+    dynamicRegistration = true,
+    codeActionLiteralSupport = {
+        codeActionKind = {
+            valueSet = (function()
+                local res = vim.tbl_values(vim.lsp.protocol.CodeActionKind)
+                table.sort(res)
+                return res
+            end)(),
         },
-      },
-    }
-  },
-})
---   globals = {
---     "Color", "c", "Group", "g", "s",
+    },
+}
+
+for server, config in pairs(configs) do
+    config.capabilities = capabilities
+    -- config.on_attach = on_attach
+    lspconfig[server].setup(config)
+end
