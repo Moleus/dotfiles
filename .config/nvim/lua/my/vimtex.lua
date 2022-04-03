@@ -14,13 +14,14 @@ g.vimtex_compiler_latexmk = {
    continuous = 0,
    executable = 'latexmk',
    options = {
-   '-xelatex',
-   '-verbose',
-   '-file-line-error',
-   '-synctex=1',
-   '-interaction=nonstopmode',
-   '-file-line-error',
-   '-outdir=tex_out'
+    '-xelatex',
+    '-shell-escape',
+    '-verbose',
+    '-file-line-error',
+    '-synctex=1',
+    '-interaction=nonstopmode',
+    '-file-line-error',
+    '-outdir=tex_out'
   }
 }
 
@@ -31,3 +32,9 @@ g.vimtex_compiler_latexmk_engines = {
   lualatex          =  '-lualatex',
   xelatex          =  '-xelatex'
 }
+
+g.vimtex_quickfix_ignore_filters = {
+       'Underfull',
+       'Overfull',
+        ''
+      }

@@ -42,3 +42,10 @@ function highlightText()
 end
 
 map('v', '<leader>b', ':lua highlightText()<CR>', default_opts)
+
+
+-- Ultisnips
+-- Set ultisnips triggers
+vim.g.UltiSnipsExpandTrigger="<tab>"
+vim.g.UltiSnipsJumpForwardTrigger="<tab>"
+vim.g.UltiSnipsJumpBackwardTrigger="<s-tab>"

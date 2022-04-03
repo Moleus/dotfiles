@@ -6,7 +6,7 @@ local opt = vim.opt             -- global/buffer/windows-scoped options
 --
 -- Core
 --
-opt.signcolumn = "number" -- don't remove warning columns
+opt.signcolumn = "auto" -- don't remove warning columns
 
 -- Ignore compiled files
 opt.wildignore = "__pycache__"
@@ -44,6 +44,7 @@ opt.tabstop = 2
 opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.expandtab = true
+opt.smartindent = true
 
 opt.breakindent = true
 opt.showbreak = string.rep(" ", 3) -- Make it so that long lines wrap smartly
