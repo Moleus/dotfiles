@@ -18,7 +18,6 @@ then
   for file in ${ZSH}/local/*.zsh 
   do
     source $file
-    echo "IS local"
   done
 fi
 
@@ -29,7 +28,7 @@ do
 done
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
+autoload -Uz compinit
 compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
 
 
