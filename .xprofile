@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# ~/.xprofile runs automatically on display login window
+
+# xset dpms 300 &
+# xautolock -time 10 -locker slock -nowlocker slock -detectsleep -corners 000+ -cornerdelay 3 &
+# dwmblocks & 
+# compton &    # window compositor for transparency and fading
+# dwmbar &     # script for updating the status bar
+
+SCRIPTS_PATH="$HOME/.local/bin/scripts"
+export PATH="$SCRIPTS_PATH:$PATH"
+$SCRIPTS_PATH/remaps &     # Remaps some keys          
+/usr/bin/sxhkd &           # Bind keys
+$SCRIPTS_PATH/setbg &      # sets desktop bg
