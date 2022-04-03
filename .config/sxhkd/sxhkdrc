@@ -1,0 +1,45 @@
+# firefox, terminal, telegram, discord, blender
+mod4 + shift + {f,m,d,v}
+	{firefox,\
+	 Telegram,\
+	 discord,\
+	 code,\
+	}
+
+# volume\
+# {XF86AudioRaiseVolume, XF86AudioLowerVolume, XF86AudioMute}
+# 	pavolume {--up,--down,--togmute}; pkill -RTMIN+10 blocks
+
+#display brightness
+{XF86MonBrightnessDown, XF86MonBrightnessUp}
+   change_brightness {decrease, increase}
+
+# { XF86AudioPrev, XF86AudioNext }
+
+#control mpv player
+mod4 + m ; {Left,Right,space}
+	mpv_control {prev,next,toggle}
+#mpv volume
+shift + {XF86AudioRaiseVolume, XF86AudioLowerVolume}
+	mpv_control {volumeup, volumedown}
+
+#selection screenshot
+# Print
+#   sleep 0.2 ; scrot -q 100 -s -z ~/Pictures/screenshots/screenshot-%Y-%m-%d_%H:%M.jpg -e 'xclip -selection c -t image/jpg < $f'
+#full screenshot
+# shift + Print
+#   sleep -1.2 ; scrot -q 100 -z ~/Pictures/screenshots/screenshot-%Y-%m-%d_%H:%M.jpg -e 'xclip -selection c -t image/jpg < $f'
+
+# XF86AudioStop
+  # xset dpms force off
+
+ctrl + mod4 + b
+  setbg
+#  change_bg
+
+# music control
+#alt + {space,Left,Right}
+#	liskin-media {play, prev, next}
+
+# xF86XK_AudioPlay
+# xF86XK_AudioPause
