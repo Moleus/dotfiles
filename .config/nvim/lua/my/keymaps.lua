@@ -31,17 +31,17 @@ map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>", 
 map('n', '<Leader>r', ':%s///g<Left><Left>', default_opts)
 
 -- highlight selected text
-function highlightText()
-  vim.cmd [[ hi Highlighter guifg=Cyan ]]
-  local l_start = vim.fn.getpos("'<")[2]
-  local c_start = vim.fn.getpos("'<")[3]
-  local l_end = vim.fn.getpos("'>")[2]
-  local c_end = vim.fn.getpos("'>")[3]+1
-  local command = string.format('syntax region Highlighter start="\\%%%dl\\%%%dc" end="\\%%%dl\\%%%dc"', l_start, c_start, l_end, c_end)
-  vim.api.nvim_command(command)
-end
+-- function highlightText()
+--   vim.cmd [[ hi Highlighter guifg=Cyan ]]
+--   local l_start = vim.fn.getpos("'<")[2]
+--   local c_start = vim.fn.getpos("'<")[3]
+--   local l_end = vim.fn.getpos("'>")[2]
+--   local c_end = vim.fn.getpos("'>")[3]+1
+--   local command = string.format('syntax region Highlighter start="\\%%%dl\\%%%dc" end="\\%%%dl\\%%%dc"', l_start, c_start, l_end, c_end)
+--   vim.api.nvim_command(command)
+-- end
 
-map('v', '<leader>b', ':lua highlightText()<CR>', default_opts)
+-- map('v', '<leader>b', ':lua highlightText()<CR>', default_opts)
 
 
 -- Ultisnips
@@ -49,3 +49,10 @@ map('v', '<leader>b', ':lua highlightText()<CR>', default_opts)
 vim.g.UltiSnipsExpandTrigger="<tab>"
 vim.g.UltiSnipsJumpForwardTrigger="<tab>"
 vim.g.UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+
+-- quickfixlists
+map('n', '<C-n>', ':cnext<CR>zz', default_opts)
+map('n', '<C-p>', ':cprev<CR>zz', default_opts)
+map('n', '<leader>j', ':lnext<CR>zz', default_opts)
+map('n', '<leader>k', ':lprev<CR>zz', default_opts)
