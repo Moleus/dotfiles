@@ -11,8 +11,8 @@ mod4 + shift + {f,m,d,v}
 # 	pavolume {--up,--down,--togmute}; pkill -RTMIN+10 blocks
 
 #display brightness
-{XF86MonBrightnessDown, XF86MonBrightnessUp}
-   change_brightness {decrease, increase}
+# {XF86MonBrightnessDown, XF86MonBrightnessUp}
+#    change_brightness {decrease, increase}
 
 # { XF86AudioPrev, XF86AudioNext }
 
