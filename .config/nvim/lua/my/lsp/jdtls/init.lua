@@ -29,7 +29,7 @@ function M.setup()
     }
 
     vim.api.nvim_exec([[
-          hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+          hi LspReferenceRead cterm=bold ctermbg=red guibg=Grey
           hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
           hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
           augroup lsp_document_highlight

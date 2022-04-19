@@ -112,3 +112,15 @@ g.tpipeline_cursormoved = 1
 
 -- for hex colorizer
 opt.termguicolors = true
+
+-- undo file
+-- turn on undo after saving file
+vim.opt.undodir = vim.fn.stdpath('config') .. '/undo'
+vim.opt.undofile = true
+vim.bo.undofile = true
+
+
+--
+-- Warnings and errors list
+--
+require('my.trouble')

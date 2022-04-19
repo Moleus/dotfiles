@@ -56,3 +56,16 @@ map('n', '<C-n>', ':cnext<CR>zz', default_opts)
 map('n', '<C-p>', ':cprev<CR>zz', default_opts)
 map('n', '<leader>j', ':lnext<CR>zz', default_opts)
 map('n', '<leader>k', ':lprev<CR>zz', default_opts)
+
+
+-- trouble
+map("n", "<leader>xx", "<cmd>Trouble<cr>", default_opts)
+map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", default_opts)
+map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", default_opts)
+map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", default_opts)
+map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", default_opts)
+map("n", "gR", "<cmd>Trouble lsp_references<cr>", default_opts)
+
+-- luasnip
+require('my.luasnip.mappings')
+map("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/after/plugin/luasnip.lua<CR>", default_opts)

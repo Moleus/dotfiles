@@ -1,5 +1,13 @@
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = {
+    "python",
+    "java",
+    "json",
+    "bash",
+    "c",
+    "cpp",
+    "latex",
+  },
   sync_install = false,
   highlight = {
     enable = true,

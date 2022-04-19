@@ -4,6 +4,8 @@ require('my.lsp')
 require('my.appearance.config')
 require('my.appearance.lualine')
 require('my.plugins')
+require('my.globals')
 
 require'my.treesitter'
 require'colorizer'.setup()
+

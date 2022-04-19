@@ -29,53 +29,36 @@ return require('packer').startup(function(use)
 
   -- use 'edkolev/tmuxline.vim'                                -- Tmux airline theme generator
   -- integrates vim line into tmux
-  use 'vimpostor/vim-tpipeline'
+  -- use 'vimpostor/vim-tpipeline' -- does not support global statusline yet
   use 'chrisbra/Colorizer'                          --  color hex codes and color names
-
-  -- snippets
-  use 'SirVer/ultisnips'
-  use 'honza/vim-snippets'
-
-  -- Tex support
-  use 'lervag/vimtex'
-  -- use 'KeitaNakamura/tex-conceal.vim'
-
-
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-
-  -- use 'nvim-lua/plenary.nvim'                            -- Fuzzy finder
-  use 'nvim-lua/popup.nvim'
-  use 'nvim-telescope/telescope.nvim'
-
-  use 'neovim/nvim-lspconfig'                            -- NeoVim autocomplete
-  use 'williamboman/nvim-lsp-installer'
-  -- use 'saadparwaiz1/cmp_luasnip'
-  -- use 'L3MON4D3/LuaSnip'
 
   use '907th/vim-auto-save'
   -- use 'chrisbra/unicode.vim'                             -- Unicode characters search
 
   use 'rking/ag.vim'                                   -- search in directories replacement for ack
-  use 'makerforceio/CoVim'
+  -- use 'makerforceio/CoVim'
   use 'nvie/vim-flake8'                                  -- PEP 8 checking
   use 'tpope/vim-unimpaired'
 
-  -- arguments help popup
-  use 'ray-x/lsp_signature.nvim'
 
-  -- neovim autocomplete lua
-  -- Install this plugin.
-  -- use 'tjdevries/nlua.nvim'
+  -- completions and lsp
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lua'
 
-  -- (OPTIONAL): This is recommended to get better auto-completion UX experience for builtin LSP.
+  use 'neovim/nvim-lspconfig'                            -- NeoVim autocomplete
+  use 'williamboman/nvim-lsp-installer'
+  use 'saadparwaiz1/cmp_luasnip'
+  use 'ray-x/lsp_signature.nvim'                         -- arguments help popup
+  use 'wbthomason/lsp-status.nvim'
+
   use 'nvim-lua/completion-nvim'
-
-  -- (OPTIONAL): This is a suggested plugin to get better Lua syntax highlighting
-  --   but it's not currently required
   use 'euclidianAce/BetterLua.vim'
 
-  -- (OPTIONAL): If you wish to have fancy lua folds, you can check this out.
+  -- custom windows and appearance
+  use 'nvim-lua/plenary.nvim'                            -- Fuzzy finder
+  use 'nvim-lua/popup.nvim'
+  use 'nvim-telescope/telescope.nvim'
   use 'tjdevries/manillua.nvim'
 
   -- folds
@@ -94,4 +77,32 @@ return require('packer').startup(function(use)
   use 'mfussenegger/nvim-jdtls'
   -- code formating
   use 'mhartington/formatter.nvim'
+
+
+  -- fast match-ups for brackes and %
+  use 'andymass/vim-matchup'
+
+  -- snippets
+  -- use 'SirVer/ultisnips'
+  -- use 'honza/vim-snippets'
+  use 'L3MON4D3/LuaSnip'
+
+  -- Tex support
+  use 'lervag/vimtex'
+  use 'KeitaNakamura/tex-conceal.vim'
+
+  -- Latex LuaSnip snippets
+  use {
+    'iurimateus/luasnip-latex-snippets.nvim',
+    requires = { 'L3MON4D3/LuaSnip', 'lervag/vimtex' },
+    ft = "tex",
+  }
+
+
+  -- Warnings and errors list
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+  }
+
 end)
